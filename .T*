@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tailwind CSS Utility Class Tutorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .category {
+  scroll-margin-top: 2rem;
+}
+
+.class-card {
+  transition: all 0.3s ease;
+}
+
+.class-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.copy-btn {
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.copy-btn:hover {
+  opacity: 1;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #3b82f6;
+  transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* -------------------- Responsive Adjustments -------------------- */
+
+/* Small devices (phones) */
+@media (max-width: 640px) {
+  .category {
+    scroll-margin-top: 1rem;
+  }
+
+  .class-card {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+  }
+
+  .class-card:hover {
+    transform: none; /* prevent jumpy hover effect on touch devices */
+    box-shadow: none;
+  }
+
+  .nav-link::after {
+    height: 1px;
+  }
+}
+
+/* Medium devices (tablets) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .category {
+    scroll-margin-top: 1.5rem;
+  }
+
+  .class-card {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* Large devices (desktops) */
+@media (min-width: 1025px) {
+  .category {
+    scroll-margin-top: 2rem;
+  }
+
+  .class-card {
+    font-size: 1.1rem;
+    padding: 1.25rem;
+  }
+}
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-10">
+        <div class="container mx-auto px-4 py-4">
+            <h1 class="text-2xl md:text-3xl font-bold text-blue-600">Tailwind CSS Utility Class Tutorial</h1>
+            <p class="text-gray-600 mt-2">Complete guide to Tailwind classes with CSS equivalents</p>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full md:w-64 mb-8 md:mb-0 md:mr-8 md:sticky md:top-16 self-start">
+            <div class="bg-white rounded-lg shadow p-4">
+                <h2 class="text-lg font-semibold mb-4 text-gray-700">Categories</h2>
+                <ul class="space-y-2">
+                    <li><a href="#layout" class="nav-link text-blue-500 hover:text-blue-700">Layout & Spacing</a></li>
+                    <li><a href="#typography" class="nav-link text-blue-500 hover:text-blue-700">Typography</a></li>
+                    <li><a href="#colors" class="nav-link text-blue-500 hover:text-blue-700">Colors & Backgrounds</a></li>
+                    <li><a href="#borders" class="nav-link text-blue-500 hover:text-blue-700">Borders</a></li>
+                    <li><a href="#effects" class="nav-link text-blue-500 hover:text-blue-700">Effects</a></li>
+                    <li><a href="#filters" class="nav-link text-blue-500 hover:text-blue-700">Filters</a></li>
+                    <li><a href="#tables" class="nav-link text-blue-500 hover:text-blue-700">Tables</a></li>
+                    <li><a href="#transforms" class="nav-link text-blue-500 hover:text-blue-700">Transforms</a></li>
+                    <li><a href="#transitions" class="nav-link text-blue-500 hover:text-blue-700">Transitions</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1">
+            <!-- Introduction -->
+            <section class="bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">What is Tailwind CSS?</h2>
+                <p class="mb-4">Tailwind CSS is a utility-first CSS framework that provides low-level utility classes to build custom designs without writing CSS from scratch.</p>
+                <div class="bg-gray-800 rounded-lg p-4 text-white">
+                    <p class="font-mono text-sm">
+                        <span class="text-blue-400">// Traditional CSS</span><br>
+                        .button {<br>
+                        &nbsp;&nbsp;display: inline-block;<br>
+                        &nbsp;&nbsp;padding: 0.5rem 1rem;<br>
+                        &nbsp;&nbsp;background-color: #3b82f6;<br>
+                        &nbsp;&nbsp;color: white;<br>
+                        &nbsp;&nbsp;border-radius: 0.25rem;<br>
+                        }<br><br>
+                        <span class="text-blue-400">// Tailwind equivalent</span><br>
+                        &lt;button class="inline-block px-4 py-2 bg-blue-500 text-white rounded"&gt;<br>
+                        &nbsp;&nbsp;Click me<br>
+                        &lt;/button&gt;
+                    </p>
+                </div>
+            </section>
+
+            <!-- Layout & Spacing Section -->
+            <section id="layout" class="category bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Layout & Spacing</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Display -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Display</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the display box type of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .block <span class="text-blue-400">/* display: block; */</span><br>
+                                .inline <span class="text-blue-400">/* display: inline; */</span><br>
+                                .flex <span class="text-blue-400">/* display: flex; */</span><br>
+                                .hidden <span class="text-blue-400">/* display: none; */</span>
+                            </p>
+                        </div>
+                        <div class="flex space-x-2 mt-2">
+                            <div class="block px-3 py-1 bg-blue-100 text-blue-800 rounded">Block</div>
+                            <div class="inline px-3 py-1 bg-green-100 text-green-800 rounded">Inline</div>
+                        </div>
+                    </div>
+
+                    <!-- Padding -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Padding</h3>
+                        <p class="text-sm text-gray-600 mb-2">Add padding to an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .p-4 <span class="text-blue-400">/* padding: 1rem; */</span><br>
+                                .px-4 <span class="text-blue-400">/* padding-left: 1rem; padding-right: 1rem; */</span><br>
+                                .py-2 <span class="text-blue-400">/* padding-top: 0.5rem; padding-bottom: 0.5rem; */</span><br>
+                                .pt-4 <span class="text-blue-400">/* padding-top: 1rem; */</span>
+                            </p>
+                        </div>
+                        <div class="p-4 bg-blue-100 text-blue-800 rounded mt-2">p-4 example</div>
+                    </div>
+
+                    <!-- Margin -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Margin</h3>
+                        <p class="text-sm text-gray-600 mb-2">Add margin to an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .m-4 <span class="text-blue-400">/* margin: 1rem; */</span><br>
+                                .mx-auto <span class="text-blue-400">/* margin-left: auto; margin-right: auto; */</span><br>
+                                .my-2 <span class="text-blue-400">/* margin-top: 0.5rem; margin-bottom: 0.5rem; */</span><br>
+                                .mt-8 <span class="text-blue-400">/* margin-top: 2rem; */</span>
+                            </p>
+                        </div>
+                        <div class="flex space-x-2 mt-2">
+                            <div class="m-4 px-3 py-1 bg-purple-100 text-purple-800 rounded">m-4</div>
+                            <div class="mx-auto px-3 py-1 bg-purple-100 text-purple-800 rounded">mx-auto</div>
+                        </div>
+                    </div>
+
+                    <!-- Width -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Width</h3>
+                        <p class="text-sm text-gray-600 mb-2">Set the width of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .w-full <span class="text-blue-400">/* width: 100%; */</span><br>
+                                .w-1/2 <span class="text-blue-400">/* width: 50%; */</span><br>
+                                .w-64 <span class="text-blue-400">/* width: 16rem; */</span><br>
+                                .w-auto <span class="text-blue-400">/* width: auto; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <div class="w-full h-2 bg-blue-200 rounded"></div>
+                            <div class="w-1/2 h-2 bg-blue-400 rounded"></div>
+                            <div class="w-16 h-2 bg-blue-600 rounded"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Typography Section -->
+            <section id="typography" class="category bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Typography</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Font Size -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Font Size</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the font size of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .text-xs <span class="text-blue-400">/* font-size: 0.75rem; */</span><br>
+                                .text-base <span class="text-blue-400">/* font-size: 1rem; */</span><br>
+                                .text-lg <span class="text-blue-400">/* font-size: 1.125rem; */</span><br>
+                                .text-2xl <span class="text-blue-400">/* font-size: 1.5rem; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <p class="text-xs">Extra small text (text-xs)</p>
+                            <p class="text-base">Base size text (text-base)</p>
+                            <p class="text-lg">Large text (text-lg)</p>
+                        </div>
+                    </div>
+
+                    <!-- Font Weight -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Font Weight</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the font weight of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .font-normal <span class="text-blue-400">/* font-weight: 400; */</span><br>
+                                .font-medium <span class="text-blue-400">/* font-weight: 500; */</span><br>
+                                .font-semibold <span class="text-blue-400">/* font-weight: 600; */</span><br>
+                                .font-bold <span class="text-blue-400">/* font-weight: 700; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <p class="font-normal">Normal weight text</p>
+                            <p class="font-medium">Medium weight text</p>
+                            <p class="font-bold">Bold weight text</p>
+                        </div>
+                    </div>
+
+                    <!-- Text Alignment -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Text Alignment</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the text alignment of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .text-left <span class="text-blue-400">/* text-align: left; */</span><br>
+                                .text-center <span class="text-blue-400">/* text-align: center; */</span><br>
+                                .text-right <span class="text-blue-400">/* text-align: right; */</span><br>
+                                .text-justify <span class="text-blue-400">/* text-align: justify; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <p class="text-left bg-blue-100 p-2">Left aligned text</p>
+                            <p class="text-center bg-blue-100 p-2">Center aligned text</p>
+                        </div>
+                    </div>
+
+                    <!-- Text Decoration -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Text Decoration</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the text decoration of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .underline <span class="text-blue-400">/* text-decoration: underline; */</span><br>
+                                .line-through <span class="text-blue-400">/* text-decoration: line-through; */</span><br>
+                                .no-underline <span class="text-blue-400">/* text-decoration: none; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <p class="underline">Underlined text</p>
+                            <p class="line-through">Line through text</p>
+                            <p class="no-underline text-blue-500">Link with no underline</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Colors Section -->
+            <section id="colors" class="category bg-white rounded-lg shadow p-6 mb-8">
+                <h2 class="text-xl font-semibold mb-4 text-gray-700">Colors & Backgrounds</h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Text Color -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Text Color</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the text color of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .text-red-500 <span class="text-blue-400">/* color: #ef4444; */</span><br>
+                                .text-blue-500 <span class="text-blue-400">/* color: #3b82f6; */</span><br>
+                                .text-green-500 <span class="text-blue-400">/* color: #10b981; */</span><br>
+                                .text-gray-500 <span class="text-blue-400">/* color: #6b7280; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <p class="text-red-500">Red text</p>
+                            <p class="text-blue-500">Blue text</p>
+                            <p class="text-green-500">Green text</p>
+                        </div>
+                    </div>
+
+                    <!-- Background Color -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Background Color</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the background color of an element</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .bg-red-100 <span class="text-blue-400">/* background-color: #fee2e2; */</span><br>
+                                .bg-blue-100 <span class="text-blue-400">/* background-color: #dbeafe; */</span><br>
+                                .bg-green-100 <span class="text-blue-400">/* background-color: #d1fae5; */</span><br>
+                                .bg-yellow-100 <span class="text-blue-400">/* background-color: #fef3c7; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <div class="p-3 bg-red-100 rounded">Red background</div>
+                            <div class="p-3 bg-blue-100 rounded">Blue background</div>
+                        </div>
+                    </div>
+
+                    <!-- Background Opacity -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Background Opacity</h3>
+                        <p class="text-sm text-gray-600 mb-2">Control the opacity of an element's background color</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .bg-opacity-50 <span class="text-blue-400">/* --tw-bg-opacity: 0.5; */</span><br>
+                                .bg-opacity-75 <span class="text-blue-400">/* --tw-bg-opacity: 0.75; */</span><br>
+                                .bg-opacity-100 <span class="text-blue-400">/* --tw-bg-opacity: 1; */</span>
+                            </p>
+                        </div>
+                        <div class="space-y-2 mt-2">
+                            <div class="p-3 bg-blue-500 bg-opacity-50 rounded">50% opacity</div>
+                            <div class="p-3 bg-blue-500 bg-opacity-100 rounded">100% opacity</div>
+                        </div>
+                    </div>
+
+                    <!-- Gradient Backgrounds -->
+                    <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+                        <h3 class="font-medium mb-2">Gradient Backgrounds</h3>
+                        <p class="text-sm text-gray-600 mb-2">Add gradient backgrounds to elements</p>
+                        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                            <p class="font-mono text-sm">
+                                .bg-gradient-to-r <span class="text-blue-400">/* background-image: linear-gradient(to right, ...); */</span><br>
+                                .from-blue-500 <span class="text-blue-400">/* gradient starts from blue-500 */</span><br>
+                                .to-purple-500 <span class="text-blue-400">/* gradient ends at purple-500 */</span>
+                            </p>
+                        </div>
+                        <div class="h-12 rounded-lg mt-2 bg-gradient-to-r from-blue-500 to-purple-500"></div>
+                    </div>
+                </div>
+            </section>
+            <!-- Borders Section -->
+<section id="borders" class="category bg-white rounded-lg shadow p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Borders</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Border Width -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Border Width</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the width of an element's borders</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .border <span class="text-blue-400">/* border-width: 1px; */</span><br>
+                    .border-2 <span class="text-blue-400">/* border-width: 2px; */</span><br>
+                    .border-4 <span class="text-blue-400">/* border-width: 4px; */</span><br>
+                    .border-t-2 <span class="text-blue-400">/* border-top-width: 2px; */</span>
+                </p>
+            </div>
+            <div class="space-y-2 mt-2">
+                <div class="p-3 border bg-white rounded">Border 1px</div>
+                <div class="p-3 border-2 bg-white rounded">Border 2px</div>
+            </div>
+        </div>
+
+        <!-- Border Color -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Border Color</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the color of an element's borders</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .border-red-500 <span class="text-blue-400">/* border-color: #ef4444; */</span><br>
+                    .border-blue-500 <span class="text-blue-400">/* border-color: #3b82f6; */</span><br>
+                    .border-green-500 <span class="text-blue-400">/* border-color: #10b981; */</span>
+                </p>
+            </div>
+            <div class="space-y-2 mt-2">
+                <div class="p-3 border-2 border-red-500 bg-white rounded">Red Border</div>
+                <div class="p-3 border-2 border-blue-500 bg-white rounded">Blue Border</div>
+            </div>
+        </div>
+
+        <!-- Border Radius -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Border Radius</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the radius of an element's corners</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .rounded <span class="text-blue-400">/* border-radius: 0.25rem; */</span><br>
+                    .rounded-lg <span class="text-blue-400">/* border-radius: 0.5rem; */</span><br>
+                    .rounded-full <span class="text-blue-400">/* border-radius: 9999px; */</span><br>
+                    .rounded-t-lg <span class="text-blue-400">/* border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem; */</span>
+                </p>
+            </div>
+            <div class="flex space-x-2 mt-2">
+                <div class="p-3 border bg-white rounded">Rounded</div>
+                <div class="p-3 border bg-white rounded-lg">Rounded Large</div>
+                <div class="p-3 border bg-white rounded-full w-12 h-12 flex items-center justify-center">Circle</div>
+            </div>
+        </div>
+
+        <!-- Border Style -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Border Style</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the style of an element's borders</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .border-solid <span class="text-blue-400">/* border-style: solid; */</span><br>
+                    .border-dashed <span class="text-blue-400">/* border-style: dashed; */</span><br>
+                    .border-dotted <span class="text-blue-400">/* border-style: dotted; */</span>
+                </p>
+            </div>
+            <div class="space-y-2 mt-2">
+                <div class="p-3 border border-solid bg-white rounded">Solid Border</div>
+                <div class="p-3 border border-dashed bg-white rounded">Dashed Border</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Effects Section -->
+<section id="effects" class="category bg-white rounded-lg shadow p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Effects</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Box Shadow -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Box Shadow</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the box shadow of an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .shadow-sm <span class="text-blue-400">/* box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); */</span><br>
+                    .shadow <span class="text-blue-400">/* box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); */</span><br>
+                    .shadow-lg <span class="text-blue-400">/* box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); */</span>
+                </p>
+            </div>
+            <div class="space-y-4 mt-2">
+                <div class="p-4 bg-white rounded shadow-sm">Small Shadow</div>
+                <div class="p-4 bg-white rounded shadow">Regular Shadow</div>
+            </div>
+        </div>
+
+        <!-- Opacity -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Opacity</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the opacity of an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .opacity-100 <span class="text-blue-400">/* opacity: 1; */</span><br>
+                    .opacity-75 <span class="text-blue-400">/* opacity: 0.75; */</span><br>
+                    .opacity-50 <span class="text-blue-400">/* opacity: 0.5; */</span><br>
+                    .opacity-25 <span class="text-blue-400">/* opacity: 0.25; */</span>
+                </p>
+            </div>
+            <div class="flex space-x-2 mt-2">
+                <div class="p-3 bg-blue-500 opacity-100 text-white rounded">100%</div>
+                <div class="p-3 bg-blue-500 opacity-75 text-white rounded">75%</div>
+                <div class="p-3 bg-blue-500 opacity-50 text-white rounded">50%</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Filters Section -->
+<section id="filters" class="category bg-white rounded-lg shadow p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Filters</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Blur -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Blur</h3>
+            <p class="text-sm text-gray-600 mb-2">Apply blur filters to an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .blur-none <span class="text-blue-400">/* filter: blur(0); */</span><br>
+                    .blur-sm <span class="text-blue-400">/* filter: blur(4px); */</span><br>
+                    .blur <span class="text-blue-400">/* filter: blur(8px); */</span><br>
+                    .blur-lg <span class="text-blue-400">/* filter: blur(16px); */</span>
+                </p>
+            </div>
+            <div class="flex space-x-2 mt-2">
+                <div class="p-3 bg-blue-500 text-white rounded blur-none">Normal</div>
+                <div class="p-3 bg-blue-500 text-white rounded blur-sm">Blur Small</div>
+            </div>
+        </div>
+
+        <!-- Grayscale -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Grayscale</h3>
+            <p class="text-sm text-gray-600 mb-2">Apply grayscale filters to an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .grayscale-0 <span class="text-blue-400">/* filter: grayscale(0); */</span><br>
+                    .grayscale <span class="text-blue-400">/* filter: grayscale(100%); */</span>
+                </p>
+            </div>
+            <div class="flex space-x-2 mt-2">
+                <div class="p-3 bg-blue-500 text-white rounded grayscale-0">Color</div>
+                <div class="p-3 bg-blue-500 text-white rounded grayscale">Grayscale</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tables Section -->
+<section id="tables" class="category bg-white rounded-lg shadow p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Tables</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Table Layout -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Table Layout</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the table layout algorithm</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .table-auto <span class="text-blue-400">/* table-layout: auto; */</span><br>
+                    .table-fixed <span class="text-blue-400">/* table-layout: fixed; */</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Border Collapse -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Border Collapse</h3>
+            <p class="text-sm text-gray-600 mb-2">Control whether table borders are collapsed</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .border-collapse <span class="text-blue-400">/* border-collapse: collapse; */</span><br>
+                    .border-separate <span class="text-blue-400">/* border-collapse: separate; */</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Example Table -->
+    <div class="mt-6">
+        <h3 class="font-medium mb-2">Example Table</h3>
+        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+            <p class="font-mono text-sm">
+                &lt;table class="min-w-full border-collapse border border-gray-300"&gt;<br>
+                &nbsp;&nbsp;&lt;thead&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr class="bg-gray-100"&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th class="border border-gray-300 px-4 py-2 text-left"&gt;Name&lt;/th&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th class="border border-gray-300 px-4 py-2 text-left"&gt;Age&lt;/th&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                &nbsp;&nbsp;&lt;/thead&gt;<br>
+                &nbsp;&nbsp;&lt;tbody&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td class="border border-gray-300 px-4 py-2"&gt;John&lt;/td&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td class="border border-gray-300 px-4 py-2"&gt;25&lt;/td&gt;<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                &nbsp;&nbsp;&lt;/tbody&gt;<br>
+                &lt;/table&gt;
+            </p>
+        </div>
+        
+        <div class="mt-4 overflow-x-auto">
+            <table class="min-w-full border-collapse border border-gray-300 bg-white">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border border-gray-300 px-4 py-2 text-left">Name</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Age</th>
+                        <th class="border border-gray-300 px-4 py-2 text-left">Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="border border-gray-300 px-4 py-2">John Doe</td>
+                        <td class="border border-gray-300 px-4 py-2">25</td>
+                        <td class="border border-gray-300 px-4 py-2">Developer</td>
+                    </tr>
+                    <tr class="bg-gray-50">
+                        <td class="border border-gray-300 px-4 py-2">Jane Smith</td>
+                        <td class="border border-gray-300 px-4 py-2">30</td>
+                        <td class="border border-gray-300 px-4 py-2">Designer</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- Transforms Section -->
+<section id="transforms" class="category bg-white rounded-lg shadow p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Transforms</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Rotate -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Rotate</h3>
+            <p class="text-sm text-gray-600 mb-2">Rotate an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .rotate-0 <span class="text-blue-400">/* transform: rotate(0deg); */</span><br>
+                    .rotate-45 <span class="text-blue-400">/* transform: rotate(45deg); */</span><br>
+                    .rotate-90 <span class="text-blue-400">/* transform: rotate(90deg); */</span><br>
+                    .rotate-180 <span class="text-blue-400">/* transform: rotate(180deg); */</span>
+                </p>
+            </div>
+            <div class="flex space-x-4 mt-2 items-center">
+                <div class="p-3 bg-blue-500 text-white rounded rotate-0">0°</div>
+                <div class="p-3 bg-blue-500 text-white rounded rotate-45">45°</div>
+                <div class="p-3 bg-blue-500 text-white rounded rotate-90">90°</div>
+            </div>
+        </div>
+
+        <!-- Scale -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Scale</h3>
+            <p class="text-sm text-gray-600 mb-2">Scale an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .scale-100 <span class="text-blue-400">/* transform: scale(1); */</span><br>
+                    .scale-75 <span class="text-blue-400">/* transform: scale(0.75); */</span><br>
+                    .scale-125 <span class="text-blue-400">/* transform: scale(1.25); */</span><br>
+                    .scale-x-75 <span class="text-blue-400">/* transform: scaleX(0.75); */</span>
+                </p>
+            </div>
+            <div class="flex space-x-4 mt-2 items-center">
+                <div class="p-3 bg-blue-500 text-white rounded scale-100">100%</div>
+                <div class="p-3 bg-blue-500 text-white rounded scale-75">75%</div>
+                <div class="p-3 bg-blue-500 text-white rounded scale-125">125%</div>
+            </div>
+        </div>
+
+        <!-- Translate -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Translate</h3>
+            <p class="text-sm text-gray-600 mb-2">Translate an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .translate-x-0 <span class="text-blue-400">/* transform: translateX(0); */</span><br>
+                    .translate-x-4 <span class="text-blue-400">/* transform: translateX(1rem); */</span><br>
+                    .translate-y-4 <span class="text-blue-400">/* transform: translateY(1rem); */</span><br>
+                    .-translate-x-4 <span class="text-blue-400">/* transform: translateX(-1rem); */</span>
+                </p>
+            </div>
+            <div class="relative h-16 mt-2 border border-gray-200 rounded">
+                <div class="absolute p-2 bg-blue-500 text-white rounded">Static</div>
+                <div class="absolute p-2 bg-blue-500 text-white rounded translate-x-8">X Translated</div>
+            </div>
+        </div>
+
+        <!-- Skew -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Skew</h3>
+            <p class="text-sm text-gray-600 mb-2">Skew an element</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .skew-x-0 <span class="text-blue-400">/* transform: skewX(0deg); */</span><br>
+                    .skew-x-3 <span class="text-blue-400">/* transform: skewX(3deg); */</span><br>
+                    .skew-y-3 <span class="text-blue-400">/* transform: skewY(3deg); */</span><br>
+                    .-skew-x-3 <span class="text-blue-400">/* transform: skewX(-3deg); */</span>
+                </p>
+            </div>
+            <div class="flex space-x-4 mt-2 items-center">
+                <div class="p-3 bg-blue-500 text-white rounded skew-x-0">Normal</div>
+                <div class="p-3 bg-blue-500 text-white rounded skew-x-3">Skew X</div>
+                <div class="p-3 bg-blue-500 text-white rounded skew-y-3">Skew Y</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Transitions Section -->
+<section id="transitions" class="category bg-white rounded-lg shadow p-6 mb-8">
+    <h2 class="text-xl font-semibold mb-4 text-gray-700">Transitions</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Transition Property -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Transition Property</h3>
+            <p class="text-sm text-gray-600 mb-2">Specify which properties to transition</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .transition-none <span class="text-blue-400">/* transition-property: none; */</span><br>
+                    .transition-all <span class="text-blue-400">/* transition-property: all; */</span><br>
+                    .transition-colors <span class="text-blue-400">/* transition-property: background-color, border-color, color, fill, stroke; */</span><br>
+                    .transition-opacity <span class="text-blue-400">/* transition-property: opacity; */</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Transition Duration -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Transition Duration</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the duration of transitions</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .duration-75 <span class="text-blue-400">/* transition-duration: 75ms; */</span><br>
+                    .duration-150 <span class="text-blue-400">/* transition-duration: 150ms; */</span><br>
+                    .duration-300 <span class="text-blue-400">/* transition-duration: 300ms; */</span><br>
+                    .duration-500 <span class="text-blue-400">/* transition-duration: 500ms; */</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Transition Timing Function -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Transition Timing</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the timing function of transitions</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .ease-linear <span class="text-blue-400">/* transition-timing-function: linear; */</span><br>
+                    .ease-in <span class="text-blue-400">/* transition-timing-function: cubic-bezier(0.4, 0, 1, 1); */</span><br>
+                    .ease-out <span class="text-blue-400">/* transition-timing-function: cubic-bezier(0, 0, 0.2, 1); */</span><br>
+                    .ease-in-out <span class="text-blue-400">/* transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); */</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Transition Delay -->
+        <div class="class-card bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h3 class="font-medium mb-2">Transition Delay</h3>
+            <p class="text-sm text-gray-600 mb-2">Control the delay of transitions</p>
+            <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+                <p class="font-mono text-sm">
+                    .delay-75 <span class="text-blue-400">/* transition-delay: 75ms; */</span><br>
+                    .delay-150 <span class="text-blue-400">/* transition-delay: 150ms; */</span><br>
+                    .delay-300 <span class="text-blue-400">/* transition-delay: 300ms; */</span><br>
+                    .delay-500 <span class="text-blue-400">/* transition-delay: 500ms; */</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Example Transition -->
+    <div class="mt-6">
+        <h3 class="font-medium mb-2">Example Transition</h3>
+        <div class="bg-gray-800 rounded-lg p-3 text-white mb-2">
+            <p class="font-mono text-sm">
+                &lt;button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors duration-300"&gt;<br>
+                &nbsp;&nbsp;Hover me<br>
+                &lt;/button&gt;
+            </p>
+        </div>
+        
+        <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition-colors duration-300 mt-4">
+            Hover me to see transition
+        </button>
+    </div>
+</section>
+
+            <!-- More sections would follow the same pattern -->
+            
+            <!-- Call to Action -->
+            <section class="bg-blue-50 rounded-lg shadow p-6 mt-8">
+                <h2 class="text-xl font-semibold mb-4 text-blue-700">Want to learn more?</h2>
+                <p class="mb-4">Check out the official Tailwind CSS documentation for a complete reference of all utility classes.</p>
+                <a href="https://tailwindcss.com/docs" target="_blank" class="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors">
+                
+                    Tailwind Documentation
+                </a>
+            </section>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>Created with Tailwind CSS</p>
+            <p class="mt-2 text-gray-400">All utility classes and their CSS equivalents</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple copy functionality for code examples
+        document.querySelectorAll('.font-mono').forEach(codeBlock => {
+            codeBlock.addEventListener('click', () => {
+                const textToCopy = codeBlock.textContent.replace(/\/\*.*\*\//g, '').trim();
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = codeBlock.textContent;
+                    codeBlock.textContent = 'Copied!';
+                    setTimeout(() => {
+                        codeBlock.textContent = originalText;
+                    }, 1000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
